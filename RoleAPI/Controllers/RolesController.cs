@@ -13,7 +13,7 @@ namespace RoleAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowOrigin")]
+    [EnableCors("MyPolicy")]
     public class RolesController : ControllerBase
     {
         private readonly RoleAPIContext _context;
@@ -25,7 +25,7 @@ namespace RoleAPI.Controllers
 
         // GET: api/Roles
         [HttpGet]
-        [EnableCors("AllowOrigin")]
+        [EnableCors("MyPolicy")]
         public async Task<ActionResult<IEnumerable<Role>>> GetRole()
         {   
              return await _context.Role.ToListAsync();
@@ -33,7 +33,7 @@ namespace RoleAPI.Controllers
 
         // GET: api/Roles/5
         [HttpGet("{id}")]
-        [EnableCors("AllowOrigin")]
+        [EnableCors("MyPolicy")]
         public async Task<ActionResult<Role>> GetRole(int id)
         {
             var role = await _context.Role.FindAsync(id);
@@ -57,7 +57,7 @@ namespace RoleAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        [EnableCors("AllowOrigin")]
+        [EnableCors("MyPolicy")]
         public async Task<IActionResult> PutRole(int id, Role role)
         {
             if (id != role.Id)
@@ -90,7 +90,7 @@ namespace RoleAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        [EnableCors("AllowOrigin")]
+        [EnableCors("MyPolicy")]
         public async Task<ActionResult<Role>> PostRole(Role role)
         {
             _context.Role.Add(role);
@@ -101,7 +101,7 @@ namespace RoleAPI.Controllers
 
         // DELETE: api/Roles/5
         [HttpDelete("{id}")]
-        [EnableCors("AllowOrigin")]
+        [EnableCors("MyPolicy")]
         public async Task<ActionResult<Role>> DeleteRole(int id)
         {
             var role = await _context.Role.FindAsync(id);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ namespace RoleAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyPolicy")]
     public class RoleMenusController : ControllerBase
     {
         private readonly RoleAPIContext _context;
@@ -22,6 +24,7 @@ namespace RoleAPI.Controllers
 
         // GET: api/RoleMenus
         [HttpGet]
+        [EnableCors("MyPolicy")]
         public async Task<ActionResult<IEnumerable<RoleMenu>>> GetRoleMenu()
         {
             return await _context.RoleMenu.ToListAsync();
@@ -29,6 +32,7 @@ namespace RoleAPI.Controllers
 
         // GET: api/RoleMenus/5
         [HttpGet("{id}")]
+        [EnableCors("MyPolicy")]
         public async Task<ActionResult<RoleMenu>> GetRoleMenu(int id)
         {
             var roleMenu = await _context.RoleMenu.FindAsync(id);
@@ -45,6 +49,7 @@ namespace RoleAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [EnableCors("MyPolicy")]
         public async Task<IActionResult> PutRoleMenu(int id, RoleMenu roleMenu)
         {
             if (id != roleMenu.RoleId)
@@ -87,6 +92,7 @@ namespace RoleAPI.Controllers
 
         // DELETE: api/RoleMenus/5
         [HttpDelete("{id}")]
+        [EnableCors("MyPolicy")]
         public async Task<ActionResult<RoleMenu>> DeleteRoleMenu(int id)
         {
             var roleMenu = await _context.RoleMenu.FindAsync(id);

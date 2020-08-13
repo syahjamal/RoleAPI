@@ -39,10 +39,12 @@ namespace RoleAPI
              );
             services.AddControllers();
             services.AddEntityFrameworkSqlServer();
-            services.AddCors(c =>
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            });
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,20 +55,17 @@ namespace RoleAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(options => options.AllowAnyOrigin());
-
-            app.UseCors(options => options.WithOrigins("https://localhost:44365"));
-
-            app.UseHttpsRedirection();
+           /* app.UseHttpsRedirection();*/
 
             app.UseRouting();
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
+            }); 
         }
     }
 }
